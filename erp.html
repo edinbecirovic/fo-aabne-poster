@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Åbne debitorposter (155) | Bilhuset Nordvest A/S</title>
+<style>
+:root{--nav:#001a33;--accent:#0078d4;--accent2:#005a9e;--line:#e1dfdd;--line2:#cfcdcb;--bg:#faf9f8;
+--sel:#deecf9;--hover:#f3f2f1;--ok:#107c10;--warn:#d18f00;--err:#a4262c;--txt:#201f1e;--txt2:#605e5c}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;color:var(--txt);background:var(--bg);overflow:hidden}
+button{font-family:inherit}
+.topbar{height:40px;background:var(--nav);color:#fff;display:flex;align-items:center;gap:12px;padding:0 10px}
+.waffle{font-size:16px;cursor:pointer;padding:4px 6px}.waffle:hover{background:#ffffff22}
+.brand{font-size:14px;font-weight:600}.brand span{opacity:.7;font-weight:400}
+.topsearch{margin-left:18px;background:#ffffff1a;border:1px solid #ffffff33;height:24px;display:flex;align-items:center;padding:0 8px;min-width:200px}
+.topsearch input{background:transparent;border:0;outline:0;color:#fff;width:100%;font-size:12px}
+.topright{margin-left:auto;display:flex;align-items:center;gap:2px}
+.ticon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer}.ticon:hover{background:#ffffff22}
+.company{background:#ffffff1a;border:1px solid #ffffff33;padding:3px 8px;font-size:11px}
+.avatar{width:26px;height:26px;border-radius:50%;background:#7cc0ff;color:#00304d;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;margin-left:6px}
+.app{display:flex;height:calc(100% - 40px)}
+.leftnav{width:208px;flex:0 0 208px;background:#fff;border-right:1px solid var(--line);overflow:auto}
+.leftnav.collapsed{width:46px;flex:0 0 46px}
+.navhead{padding:8px 10px;color:var(--txt2);font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+.navitem{padding:7px 12px;display:flex;gap:8px;cursor:pointer;white-space:nowrap}.navitem:hover{background:var(--hover)}
+.navitem.active{background:var(--sel);border-left:3px solid var(--accent);padding-left:9px;font-weight:600}
+.navitem .ic{width:16px;text-align:center;color:var(--accent)}
+.leftnav.collapsed .lbl,.leftnav.collapsed .navhead{display:none}
+.navgroup{border-top:1px solid var(--line);margin-top:4px;padding-top:4px}
+main{flex:1;display:flex;flex-direction:column;min-width:0}
+.crumbs{padding:6px 16px 0;color:var(--txt2);font-size:11px}.crumbs b{color:var(--txt)}
+.pagehead{display:flex;align-items:flex-end;gap:12px;padding:2px 16px 6px;flex-wrap:wrap}
+.pagehead h1{font-size:20px;margin:0}.pagehead .sub{color:var(--txt2);padding-bottom:3px}
+.savedview{margin-left:auto;display:flex;gap:8px;align-items:center;padding-bottom:3px}
+.savedview select{font-size:12px;padding:2px 4px;border:1px solid var(--line2);background:#fff}
+.actiontabs{display:flex;padding:0 16px;border-bottom:1px solid var(--line);background:#fff}
+.atab{padding:7px 12px;cursor:pointer;border-bottom:2px solid transparent}.atab:hover{background:var(--hover)}
+.atab.active{border-bottom-color:var(--accent);font-weight:600;color:var(--accent2)}
+.actionpane{display:flex;gap:2px;padding:6px 16px;background:#fff;border-bottom:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.abtn{display:flex;align-items:center;gap:6px;background:transparent;border:1px solid transparent;padding:5px 9px;cursor:pointer;font-size:12px;color:var(--txt)}
+.abtn:hover{background:var(--hover);border-color:var(--line2)}
+.abtn.primary{background:var(--accent);color:#fff}.abtn.primary:hover{background:var(--accent2)}
+.sep{width:1px;background:var(--line);margin:2px 6px;align-self:stretch}
+.msgbar{display:none;align-items:center;gap:10px;padding:7px 16px;border-bottom:1px solid var(--line)}
+.msgbar.show{display:flex}.msgbar.info{background:#eff6fc;border-left:4px solid var(--accent)}
+.msgbar.ok{background:#dff6dd;border-left:4px solid var(--ok)}
+.msgbar.warn{background:#fff4ce;border-left:4px solid var(--warn)}
+.msgbar .x{margin-left:auto;cursor:pointer;color:var(--txt2)}
+.content{flex:1;display:flex;min-height:0}
+.work{flex:1;overflow:auto;padding:10px 16px 20px;min-width:0}
+.factbox{width:290px;flex:0 0 290px;border-left:1px solid var(--line);background:#fff;overflow:auto}
+.fbhead{padding:8px 12px;border-bottom:1px solid var(--line);font-weight:600}
+.fbsec{border-bottom:1px solid var(--line);padding:8px 12px}
+.fbsec h4{margin:0 0 6px;font-size:11px;text-transform:uppercase;color:var(--txt2);letter-spacing:.5px}
+.fbrow{display:flex;justify-content:space-between;gap:8px;padding:2px 0}
+.fbrow span:first-child{color:var(--txt2)}.fbrow span:last-child{text-align:right;font-weight:600}
+.bar{height:6px;background:#edebe9;margin-top:3px}.bar i{display:block;height:6px;background:var(--accent)}
+.tiles{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.tile{background:#fff;border:1px solid var(--line);padding:7px 11px;min-width:126px}
+.tile .lab{color:var(--txt2);font-size:11px}.tile .val{font-size:17px;font-weight:600;margin-top:2px}
+.tile.red .val{color:var(--err)}.tile.pur .val{color:#5c2d91}
+.panel{background:#fff;border:1px solid var(--line)}
+.ptitle{padding:7px 10px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ptitle h3{margin:0;font-size:13px}.count{color:var(--txt2)}
+.ptools{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.qf{border:1px solid var(--line2);height:24px;display:flex;align-items:center;padding:0 6px;background:#fff}
+.qf input{border:0;outline:0;font-size:12px;width:230px}
+.chip{border:1px solid var(--line2);background:#fff;padding:3px 8px;border-radius:12px;cursor:pointer;font-size:11px}
+.chip.active{background:var(--sel);border-color:var(--accent);font-weight:600}
+.gwrap{max-height:calc(100vh - 372px);overflow:auto}
+table{border-collapse:collapse;width:100%}
+thead th{position:sticky;top:0;background:#f3f2f1;border-bottom:1px solid var(--line2);text-align:left;padding:6px 8px;font-size:11px;white-space:nowrap;z-index:2;cursor:pointer;user-select:none}
+thead th:hover{background:#eaeaea}thead th.r{text-align:right}thead th .ar{color:var(--accent);font-size:9px}
+tbody td{padding:5px 8px;border-bottom:1px solid #f0efee;white-space:nowrap}
+tbody td.r{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--hover)}tbody tr.sel{background:var(--sel)}
+tbody td.link{color:var(--accent2);text-decoration:underline;text-decoration-style:dotted}
+tbody td.deb{font-variant-numeric:tabular-nums;color:#3b3a39}
+tfoot td{padding:6px 8px;border-top:2px solid var(--line2);background:#fbfaf9;font-weight:600}
+tfoot td.r{text-align:right;font-variant-numeric:tabular-nums}
+.pager{padding:6px 10px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;background:#fff;flex-wrap:wrap}
+.pbtn{border:1px solid var(--line2);background:#fff;padding:3px 8px;cursor:pointer}
+.pbtn:disabled{opacity:.4;cursor:default}.pbtn.cur{background:var(--sel);border-color:var(--accent);font-weight:600}
+.foot{padding:6px 10px;border-top:1px solid var(--line);display:flex;gap:20px;background:#fbfaf9;color:var(--txt2);flex-wrap:wrap}
+.foot b{color:var(--txt)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
+.d-open{background:var(--accent)}.d-late{background:var(--err)}
+.badge{border-radius:10px;padding:1px 7px;font-size:10.5px;font-weight:600}
+.b-priv{background:#eff6fc;color:#005a9e}.b-erh{background:#f3e6ff;color:#5c2d91}.b-eu{background:#fff4ce;color:#7a5a00}
+.dup{background:#f3e6ff;color:#5c2d91;border-radius:8px;padding:0 5px;font-size:10px;margin-left:5px;font-weight:600}
+.mask{position:fixed;inset:0;background:#00000066;display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.mask.show{display:flex}
+.dlg{background:#fff;width:720px;max-width:100%;max-height:88vh;overflow:auto;box-shadow:0 8px 30px #00000055}
+.dlghead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex}
+.dlghead h3{margin:0;font-size:16px}.dlghead .x{margin-left:auto;cursor:pointer;color:var(--txt2)}
+.dlgbody{padding:14px 16px}.dlgbody h4{margin:14px 0 6px;font-size:11px;text-transform:uppercase;color:var(--txt2)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.f{display:flex;flex-direction:column;gap:2px}.f label{color:var(--txt2);font-size:11px}
+.f div,.f input,.f select{border:1px solid var(--line2);padding:4px 6px;font-size:12px;background:#fff}
+.dlgfoot{padding:10px 16px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;background:#fbfaf9}
+.toast{position:fixed;right:16px;bottom:16px;background:#323130;color:#fff;padding:10px 14px;z-index:60;display:none}
+.chk{cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="waffle" onclick="document.getElementById('leftnav').classList.toggle('collapsed')">☰</div>
+  <div class="brand">Finance and Operations <span>| Debitor</span></div>
+  <div class="topsearch">🔍&nbsp;<input placeholder="Søg efter en side"></div>
+  <div class="topright">
+    <div class="company">BNV – Bilhuset Nordvest A/S</div>
+    <div class="ticon" onclick="toast('Vedhæftninger: 0')">📎</div>
+    <div class="ticon" onclick="toast('Ingen nye meddelelser')">🔔</div>
+    <div class="ticon" onclick="toast('Indstillinger')">⚙️</div>
+    <div class="ticon" onclick="toast('Hjælp til åbne poster')">❓</div>
+    <div class="avatar" title="Mette Bjerregaard – Bogholderi">MB</div>
+  </div>
+</div>
+
+<div class="app">
+<nav class="leftnav" id="leftnav">
+  <div class="navhead">Favoritter</div>
+  <div class="navitem active"><span class="ic">★</span><span class="lbl">Åbne debitorposter</span></div>
+  <div class="navitem"><span class="ic">★</span><span class="lbl">Debitorkartotek</span></div>
+  <div class="navitem"><span class="ic">★</span><span class="lbl">Værkstedsordrer</span></div>
+  <div class="navgroup"><div class="navhead">Arbejdsområder</div>
+    <div class="navitem"><span class="ic">▦</span><span class="lbl">Debitoropgaver</span></div>
+    <div class="navitem"><span class="ic">▦</span><span class="lbl">Indbetalinger</span></div>
+    <div class="navitem"><span class="ic">▦</span><span class="lbl">Rykkerkørsel</span></div>
+  </div>
+  <div class="navgroup"><div class="navhead">Moduler</div>
+    <div class="navitem"><span class="ic">👤</span><span class="lbl">Debitor</span></div>
+    <div class="navitem"><span class="ic">💰</span><span class="lbl">Kontant- og bankstyring</span></div>
+    <div class="navitem"><span class="ic">🏭</span><span class="lbl">Kreditor</span></div>
+    <div class="navitem"><span class="ic">📊</span><span class="lbl">Finans</span></div>
+    <div class="navitem"><span class="ic">🚗</span><span class="lbl">Bilsalg &amp; lager</span></div>
+    <div class="navitem"><span class="ic">🔧</span><span class="lbl">Servicestyring</span></div>
+    <div class="navitem"><span class="ic">📦</span><span class="lbl">Reservedele</span></div>
+  </div>
+</nav>
+
+<main>
+  <div class="crumbs">Debitor &rsaquo; Forespørgsler og rapporter &rsaquo; <b>Åbne debitorposter</b></div>
+  <div class="pagehead">
+    <h1>Åbne debitorposter</h1>
+    <div class="sub">Balancekonto 6100 – Debitorer · fakturaperiode 01-09-2025 – 09-12-2025 · valuta DKK · opgørelsesdato 15-12-2025</div>
+    <div class="savedview"><span style="color:var(--txt2)">Visning</span>
+      <select id="view" onchange="applyView()">
+        <option value="std">Standardvisning</option>
+        <option value="forf">Kun forfaldne</option>
+        <option value="erh">Erhvervskunder</option>
+        <option value="dup">Dubletbeløb (samme beløb)</option>
+        <option value="fler">Debitorer med flere poster</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="actiontabs">
+    <div class="atab active">Åbne poster</div>
+    <div class="atab" onclick="toast('Fanen er ikke aktiv i demoen')">Postering</div>
+    <div class="atab" onclick="toast('Fanen er ikke aktiv i demoen')">Indsaml</div>
+    <div class="atab" onclick="toast('Fanen er ikke aktiv i demoen')">Udskriv</div>
+  </div>
+
+  <div class="actionpane">
+    <button class="abtn primary" onclick="exportCSV('alle')">⬇ Download CSV (alle 155 poster)</button>
+    <button class="abtn" onclick="exportCSV('filtreret')">⬇ Download CSV (vist/filtreret)</button>
+    <button class="abtn" onclick="exportCSV('valgte')">⬇ Download CSV (markerede)</button>
+    <button class="abtn" onclick="exportJSON()">⬇ Download JSON</button>
+    <div class="sep"></div>
+    <button class="abtn" onclick="openExportDlg()">⚙ Eksportindstillinger…</button>
+    <button class="abtn" onclick="copyClipboard()">📋 Kopiér til udklipsholder</button>
+    <div class="sep"></div>
+    <button class="abtn" onclick="openDetails()">🔍 Vis detaljer</button>
+    <button class="abtn" onclick="openDebitor()">👤 Debitorsaldo</button>
+    <button class="abtn" onclick="openAging()">📈 Aldersfordeling</button>
+    <button class="abtn" onclick="selectAll(true)">☑ Markér alle viste</button>
+    <button class="abtn" onclick="selectAll(false)">☐ Fjern markering</button>
+  </div>
+
+  <div class="msgbar" id="msgbar"></div>
+
+  <div class="content">
+    <div class="work">
+      <div class="tiles">
+        <div class="tile"><div class="lab">Åbne poster</div><div class="val" id="tPosts">–</div></div>
+        <div class="tile"><div class="lab">Åben saldo i alt</div><div class="val" id="tSum">–</div></div>
+        <div class="tile red"><div class="lab">Forfaldne (antal / DKK)</div><div class="val" id="tLate">–</div></div>
+        <div class="tile"><div class="lab">Debitorer</div><div class="val" id="tDeb">–</div></div>
+        <div class="tile"><div class="lab">Privat / Erhverv</div><div class="val" id="tSplit">–</div></div>
+        <div class="tile"><div class="lab">Gns. pr. faktura</div><div class="val" id="tAvg">–</div></div>
+        <div class="tile pur"><div class="lab">Poster m. dubletbeløb</div><div class="val" id="tDup">–</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="ptitle">
+          <h3>Åbne poster – debitorfakturaer</h3><span class="count" id="cnt"></span>
+          <div class="ptools">
+            <span class="chip active" data-fl="alle" onclick="setF(this)">Alle</span>
+            <span class="chip" data-fl="privat" onclick="setF(this)">Privat</span>
+            <span class="chip" data-fl="erhverv" onclick="setF(this)">Erhverv</span>
+            <span class="chip" data-fl="forfaldne" onclick="setF(this)">Forfaldne</span>
+            <span class="chip" data-fl="stor" onclick="setF(this)">Beløb ≥ 15.000</span>
+            <span class="chip" data-fl="dup" onclick="setF(this)">Dubletbeløb</span>
+            <span class="chip" data-fl="fler" onclick="setF(this)">Flere poster pr. debitor</span>
+            <div class="qf">🔍&nbsp;<input id="q" placeholder="Filtrér fakturanr., debitornr., kunde, plade, stelnr.…" oninput="page=1;render()"></div>
+          </div>
+        </div>
+        <div class="gwrap">
+          <table>
+            <thead><tr>
+              <th style="width:28px"><input type="checkbox" class="chk" id="chkAll" onclick="selectAll(this.checked)"></th>
+              <th onclick="sortBy('fak')">Fakturanr <span class="ar" id="ar-fak"></span></th>
+              <th onclick="sortBy('deb')">Debitornr <span class="ar" id="ar-deb"></span></th>
+              <th onclick="sortBy('dato')">Fakturadato <span class="ar" id="ar-dato"></span></th>
+              <th onclick="sortBy('forfald')">Forfaldsdato <span class="ar" id="ar-forfald"></span></th>
+              <th onclick="sortBy('kunde')">Kunde <span class="ar" id="ar-kunde"></span></th>
+              <th onclick="sortBy('type')">Kundetype <span class="ar" id="ar-type"></span></th>
+              <th onclick="sortBy('plade')">Nummerplade <span class="ar" id="ar-plade"></span></th>
+              <th onclick="sortBy('vin')">Stelnummer <span class="ar" id="ar-vin"></span></th>
+              <th onclick="sortBy('bil')">Bil <span class="ar" id="ar-bil"></span></th>
+              <th class="r" onclick="sortBy('belob')">Beløb DKK <span class="ar" id="ar-belob"></span></th>
+              <th onclick="sortBy('dage')">Status / forfald <span class="ar" id="ar-dage"></span></th>
+            </tr></thead>
+            <tbody id="body"></tbody>
+            <tfoot><tr><td colspan="10" id="ftLab"></td><td class="r" id="ftSum"></td><td></td></tr></tfoot>
+          </table>
+        </div>
+        <div class="pager" id="pager"></div>
+        <div class="foot" id="foot"></div>
+      </div>
+    </div>
+
+    <aside class="factbox"><div class="fbhead">📄 Relaterede oplysninger</div><div id="fb"></div></aside>
+  </div>
+</main>
+</div>
+
+<div class="mask" id="mask" onclick="if(event.target===this)closeDlg()">
+  <div class="dlg"><div class="dlghead"><h3 id="dlgTitle"></h3><div class="x" onclick="closeDlg()">✕</div></div>
+  <div class="dlgbody" id="dlgBody"></div><div class="dlgfoot" id="dlgFoot"></div></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* [fakturanr, debitornr, fakturadato, forfaldsdato, kunde, kundetype, nummerplade, stelnummer, bil, beløb] */
+const R=[["F-2025-1001","DEB-10001","01-09-2025","15-09-2025","Jens Peter Sørensen","Privat","AB 12 345","WVWZZZ1JZXW000123","VW Golf 1.4 TSI",14500.0],["F-2025-1002","DEB-10002","02-09-2025","16-09-2025","Mette Kirkegaard","Privat","CD 45 678","WAUZZZ8KZBA111234","Audi A4 2.0 TDI",18750.0],["F-2025-1003","DEB-10003","03-09-2025","17-09-2025","Autohuset Vest ApS","Erhverv","DE 98 765","VF7NCRHYKFY222345","Citroën C4",9200.0],["F-2025-1004","DEB-10004","04-09-2025","18-09-2025","Lars Bo Nielsen","Privat","EF 23 456","WBAVA31070NL33456","BMW 320d",12300.0],["F-2025-1005","DEB-10005","05-09-2025","19-09-2025","Camilla Holm Jensen","Privat","GH 34 567","JTDKB20U703444567","Toyota Prius",7850.0],["F-2025-1006","DEB-10006","08-09-2025","22-09-2025","Bilcenter Nord A/S","Erhverv","JK 56 789","WDD2040021A555678","Mercedes C220",11600.0],["F-2025-1007","DEB-10006","08-09-2025","22-09-2025","Bilcenter Nord A/S","Erhverv","LM 67 890","TMBJJ7NE0E9666789","Skoda Octavia",7800.0],["F-2025-1008","DEB-10007","09-09-2025","23-09-2025","Søren Overgaard","Privat","NP 78 901","YV1MS6742F2777890","Volvo V60",16250.0],["F-2025-1009","DEB-10008","10-09-2025","24-09-2025","Rikke Toft Andersen","Privat","OR 89 012","VNKKTUD3X0A888901","Toyota Yaris",16900.0],["F-2025-1010","DEB-10009","11-09-2025","25-09-2025","Leasing Partner Danmark A/S","Erhverv","ST 90 123","ZFA31200000999012","Fiat 500",20000.0],["F-2025-1011","DEB-10010","12-09-2025","26-09-2025","Ahmed Yilmaz","Privat","UV 01 234","WF0AXXGCDA0111223","Ford Focus",6400.0],["F-2025-1012","DEB-10011","15-09-2025","29-09-2025","Henrik Vestergaard","Privat","XY 11 223","SB1KZ3JE10E222334","Toyota Auris",13750.0],["F-2025-1013","DEB-10012","15-09-2025","29-09-2025","Fleet Solutions GmbH","Erhverv (EU)","ZA 33 445","WVGZZZ5NZ9W333445","VW Tiguan",17300.0],["F-2025-1014","DEB-10013","16-09-2025","30-09-2025","Pia Munk Larsen","Privat","BC 55 667","KNADN512AS6444556","Kia Rio",5400.0],["F-2025-1015","DEB-10014","17-09-2025","01-10-2025","Taxi Service Aarhus ApS","Erhverv","CE 77 889","WDB2110061A555667","Mercedes E220",19850.0],["F-2025-1016","DEB-10015","18-09-2025","02-10-2025","Morten Bjerregaard","Privat","DF 99 001","1FTFW1ET5DFC66778","Ford Ranger",15000.0],["F-2025-1017","DEB-10016","19-09-2025","03-10-2025","Anne Sofie Krogh","Privat","EH 22 334","VSSZZZ6JZ9R777889","Seat Ibiza",8950.0],["F-2025-1018","DEB-10017","22-09-2025","06-10-2025","Nordic Car Export A/S","Erhverv","FJ 44 556","JN1TENT31U0888990","Nissan X-Trail",12750.0],["F-2025-1019","DEB-10018","23-09-2025","07-10-2025","Kasper Lund Poulsen","Privat","GK 66 778","WAUZZZF48JA999001","Audi A5",12300.0],["F-2025-1020","DEB-10019","24-09-2025","08-10-2025","Bilsyn & Service ApS","Erhverv","HL 88 990","WBA8E110X0K111002","BMW 318i",6750.0],["F-2025-1021","DEB-10020","25-09-2025","09-10-2025","Bjarne Kjeldsen","Privat","IK 12 908","WVWZZZAUZJW121314","VW Polo 1.0 TSI",4950.0],["F-2025-1022","DEB-10021","25-09-2025","09-10-2025","Dorte Skov Hansen","Privat","JM 34 019","VF1RFB00X54123456","Renault Clio",6150.0],["F-2025-1023","DEB-10022","26-09-2025","26-10-2025","VVS Nord ApS","Erhverv","KN 56 120","WV1ZZZ7HZ9H123457","VW Transporter T5",21400.0],["F-2025-1024","DEB-10023","26-09-2025","10-10-2025","Ole Kristian Dam","Privat","LP 78 231","WBA1V510X0V234567","BMW 118i",9750.0],["F-2025-1025","DEB-10024","29-09-2025","13-10-2025","Signe Møller Berg","Privat","MR 90 342","JTNKU3JE30J345678","Toyota Corolla",12300.0],["F-2025-1026","DEB-10025","29-09-2025","29-10-2025","Aalborg Rengøring A/S","Erhverv","NS 01 453","ZFA25000002456789","Fiat Ducato",18750.0],["F-2025-1027","DEB-10026","30-09-2025","14-10-2025","Torben Emil Krag","Privat","OT 23 564","WF0GXXTTGGDS56789","Ford Mondeo",7400.0],["F-2025-1028","DEB-10027","30-09-2025","14-10-2025","Yasmin Haddad","Privat","PU 45 675","KMHD351CBFU678901","Hyundai i30",5900.0],["F-2025-1029","DEB-10028","01-10-2025","15-10-2025","Klaus Overby","Privat","RV 67 786","WAUZZZ4G0DN789012","Audi A6 3.0 TDI",24300.0],["F-2025-1030","DEB-10029","01-10-2025","31-10-2025","Byggeteam Himmerland ApS","Erhverv","SX 89 897","W1V44760213890123","Mercedes Sprinter 316",15000.0],["F-2025-1031","DEB-10030","02-10-2025","16-10-2025","Marianne Bech","Privat","TY 01 908","VF3LCYHZPGS901234","Peugeot 308",8250.0],["F-2025-1032","DEB-10031","02-10-2025","16-10-2025","Frederik Storm Lauritzen","Privat","UZ 23 019","YV1DZ8256C2012345","Volvo XC60",19500.0],["F-2025-1033","DEB-10032","03-10-2025","17-10-2025","Hanne Lykke Simonsen","Privat","VA 45 120","SB1ZS3JE20E123450","Toyota Avensis",6750.0],["F-2025-1034","DEB-10033","03-10-2025","02-11-2025","Dansk Autoudlejning A/S","Erhverv","WB 67 231","WDD1770871J234561","Mercedes A180",12750.0],["F-2025-1035","DEB-10034","06-10-2025","20-10-2025","Jesper Toft Madsen","Privat","XC 89 342","WVWZZZ3CZ8E345672","VW Passat 2.0 TDI",14500.0],["F-2025-1036","DEB-10035","06-10-2025","20-10-2025","Louise Dalgaard","Privat","YD 01 453","KNAB2511AJT456783","Kia Ceed",3850.0],["F-2025-1037","DEB-10036","07-10-2025","21-10-2025","Mads Peter Winther","Privat","ZE 23 564","JMZKE2W7600567894","Mazda CX-5",16900.0],["F-2025-1038","DEB-10037","07-10-2025","06-11-2025","Thy Landbrugsservice I/S","Erhverv","AF 45 675","VF3YDZMFC12678905","Peugeot Boxer",22600.0],["F-2025-1039","DEB-10038","08-10-2025","22-10-2025","Nanna Bjerre","Privat","BG 67 786","WBA5A310X0G789016","BMW 520d",17300.0],["F-2025-1040","DEB-10039","08-10-2025","22-10-2025","Christian Ovesen","Privat","CH 89 897","WF0KXXGCBK089012","Ford Fiesta",4200.0],["F-2025-1041","DEB-10040","09-10-2025","23-10-2025","Susanne Riis Nørgaard","Privat","DJ 01 908","VNKKD3D330A901238","Toyota Aygo",2980.0],["F-2025-1042","DEB-10041","09-10-2025","08-11-2025","El-Teknik Vendsyssel ApS","Erhverv","EK 23 019","WV1ZZZ2KZAX012349","VW Caddy",9450.0],["F-2025-1043","DEB-10042","10-10-2025","24-10-2025","Peter Ravn Kristensen","Privat","FL 45 120","WAUZZZ8V0FA123460","Audi A3",11600.0],["F-2025-1044","DEB-10043","10-10-2025","24-10-2025","Ida Marie Bruun","Privat","GM 67 231","SB1KZ3JE60F234571","Toyota Auris",7850.0],["F-2025-1045","DEB-10044","13-10-2025","27-10-2025","Kim Sander Olesen","Privat","HN 89 342","WDD2050041F345682","Mercedes C200",20000.0],["F-2025-1046","DEB-10045","13-10-2025","12-11-2025","Nordjysk Køleteknik A/S","Erhverv","IP 01 453","VF7YB1MFB12456793","Citroën Jumper",13750.0],["F-2025-1047","DEB-10046","14-10-2025","28-10-2025","Emilie Hasselbalch","Privat","JR 23 564","TMBEJ7NS0F056780","Skoda Fabia",5400.0],["F-2025-1048","DEB-10047","14-10-2025","28-10-2025","Anders Bak Jørgensen","Privat","KS 45 675","YV1MW714472678915","Volvo V50",12300.0],["F-2025-1049","DEB-10048","15-10-2025","29-10-2025","Rasmus Holt Andreasen","Privat","LT 67 786","WVWZZZ1KZAW789026","VW Golf 1.6 TDI",9200.0],["F-2025-1050","DEB-10049","15-10-2025","14-11-2025","Autotransport Jylland ApS","Erhverv","MU 89 897","1FTFW1ET8EFA89013","Ford F-150",26500.0],["F-2025-1051","DEB-10050","16-10-2025","30-10-2025","Birgitte Sand","Privat","NV 01 908","KMHDH41EBEU901248","Hyundai i40",8950.0],["F-2025-1052","DEB-10051","16-10-2025","30-10-2025","Jonas Elkjær","Privat","OX 23 019","WBA8D910X0K012359","BMW 320i",15000.0],["F-2025-1053","DEB-10052","17-10-2025","31-10-2025","Katrine Vad Poulsen","Privat","PY 45 120","JTDKB20U903123470","Toyota Prius",6400.0],["F-2025-1054","DEB-10053","17-10-2025","16-11-2025","Kommune Vest – Materielgård","Erhverv","QZ 67 231","WF0XXXTTFXDU23458","Ford Transit",31200.0],["F-2025-1055","DEB-10054","20-10-2025","03-11-2025","Steen Aagaard","Privat","RA 89 342","VF1MFAM0H54345692","Renault Megane",10400.0],["F-2025-1056","DEB-10055","20-10-2025","03-11-2025","Lene Bak Christoffersen","Privat","SB 01 453","SJNFAAJ11U1456703","Nissan Qashqai",13900.0],["F-2025-1057","DEB-10056","21-10-2025","04-11-2025","Ulrik Damgaard","Privat","TC 23 564","WAUZZZF58KA567814","Audi Q5",27800.0],["F-2025-1058","DEB-10057","21-10-2025","20-11-2025","Vendsyssel Vognmandsforretning A/S","Erhverv","UD 45 675","WMAN06ZZ89Y678925","MAN TGL 12.180",34750.0],["F-2025-1059","DEB-10058","22-10-2025","05-11-2025","Sara Kjær Nybo","Privat","VE 67 786","VSSZZZ6JZAR789036","Seat Ibiza",4650.0],["F-2025-1060","DEB-10059","22-10-2025","05-11-2025","Thomas Lyngholm","Privat","WF 89 897","WVGZZZ5NZBW890147","VW Tiguan",18300.0],["F-2025-1061","DEB-10060","23-10-2025","06-11-2025","Gitte Overgaard","Privat","XG 01 908","KNADN412AT6901258","Kia Rio",3200.0],["F-2025-1062","DEB-10006","23-10-2025","22-11-2025","Bilcenter Nord A/S","Erhverv","YH 23 019","WDB2110071A012369","Mercedes E320",11600.0],["F-2025-1063","DEB-10061","24-10-2025","07-11-2025","Martin Skøtt","Privat","ZJ 45 120","WF0AXXGCDA1123480","Ford Focus",7800.0],["F-2025-1064","DEB-10062","24-10-2025","07-11-2025","Helle Munk Sørensen","Privat","AK 67 231","JTNKU3JE60J234591","Toyota Corolla",12750.0],["F-2025-1065","DEB-10063","27-10-2025","10-11-2025","Brian Ottesen","Privat","BL 89 342","WVWZZZAWZLU345602","VW T-Roc",16250.0],["F-2025-1066","DEB-10012","27-10-2025","26-11-2025","Fleet Solutions GmbH","Erhverv (EU)","CM 01 453","WVGZZZ5NZCW456713","VW Tiguan Allspace",17300.0],["F-2025-1067","DEB-10064","28-10-2025","11-11-2025","Astrid Levin","Privat","DN 23 564","VF3CCHMZ6GT567824","Citroën C3",5100.0],["F-2025-1068","DEB-10065","28-10-2025","11-11-2025","Niels Erik Frandsen","Privat","EP 45 675","YV1RS61T522678935","Volvo S60",9850.0],["F-2025-1069","DEB-10066","29-10-2025","12-11-2025","Camilla Bjørn Nielsen","Privat","FR 67 786","WBA3B110X0F789046","BMW 316d",14500.0],["F-2025-1070","DEB-10067","29-10-2025","28-11-2025","Skagen Fiskeeksport A/S","Erhverv","GS 89 897","W1V44760513890157","Mercedes Sprinter 519",29400.0],["F-2025-1071","DEB-10068","30-10-2025","13-11-2025","Karsten Boje","Privat","HT 01 908","TMBJG7NE0F9901268","Skoda Octavia",10750.0],["F-2025-1072","DEB-10069","30-10-2025","13-11-2025","Line Vinther","Privat","IU 23 019","KMHJ2812CJU012379","Hyundai Tucson",15000.0],["F-2025-1073","DEB-10070","31-10-2025","14-11-2025","Ejvind Nørskov","Privat","JV 45 120","WVWZZZ1JZYW123490","VW Bora",2850.0],["F-2025-1074","DEB-10071","31-10-2025","30-11-2025","Aars Maskinstation ApS","Erhverv","KX 67 231","VF7YDZMFC22234501","Citroën Jumper",19850.0],["F-2025-1075","DEB-10072","03-11-2025","17-11-2025","Pernille Hjorth","Privat","LY 89 342","JMZDE10Y600345612","Mazda 2",4400.0],["F-2025-1076","DEB-10073","03-11-2025","17-11-2025","Rune Bertelsen","Privat","MZ 01 453","WAUZZZ8K0CA456723","Audi A4 Avant",13400.0],["F-2025-1077","DEB-10074","04-11-2025","18-11-2025","Vibeke Hald","Privat","NA 23 564","WF0SXXGBWS056783","Ford Kuga",12300.0],["F-2025-1078","DEB-10017","04-11-2025","04-12-2025","Nordic Car Export A/S","Erhverv","OB 45 675","JN1TENT31U1678945","Nissan X-Trail",12750.0],["F-2025-1079","DEB-10075","05-11-2025","19-11-2025","Simon Hedegaard","Privat","PC 67 786","WVWZZZ6RZAY789056","VW Polo 6R",6900.0],["F-2025-1080","DEB-10076","05-11-2025","19-11-2025","Mette Amdi","Privat","QD 89 897","SB1ZE3JE10E890167","Toyota Verso",11200.0],["F-2025-1081","DEB-10077","06-11-2025","20-11-2025","Allan Weber","Privat","RE 01 908","WBAKS410X0J901278","BMW 530d",23600.0],["F-2025-1082","DEB-10014","06-11-2025","06-12-2025","Taxi Service Aarhus ApS","Erhverv","SF 23 019","WDB2130261A012389","Mercedes E220",19850.0],["F-2025-1083","DEB-10078","07-11-2025","21-11-2025","Jette Kongsted","Privat","TG 45 120","VF1KZ0G0X54123401","Renault Kadjar",8700.0],["F-2025-1084","DEB-10079","07-11-2025","21-11-2025","Oliver Bang","Privat","UH 67 231","WVWZZZAUZKW234512","VW Golf GTI",21900.0],["F-2025-1085","DEB-10080","10-11-2025","24-11-2025","Grethe Lindberg","Privat","VI 89 342","KNAB3511AKT345623","Kia Ceed SW",7150.0],["F-2025-1086","DEB-10019","10-11-2025","10-12-2025","Bilsyn & Service ApS","Erhverv","WJ 01 453","WBA8E110X1K456734","BMW 318i",6750.0],["F-2025-1087","DEB-10081","11-11-2025","25-11-2025","Preben Skjødt","Privat","XK 23 564","JTDKB20U803567845","Toyota Prius",15000.0],["F-2025-1088","DEB-10082","11-11-2025","25-11-2025","Ann-Britt Holst","Privat","YL 45 675","VSSZZZKJZBR678956","Seat Leon",9400.0],["F-2025-1089","DEB-10083","12-11-2025","26-11-2025","Kenneth Vium","Privat","ZM 67 786","WF0FXXWPDF178906","Ford S-Max",13750.0],["F-2025-1090","DEB-10009","12-11-2025","12-12-2025","Leasing Partner Danmark A/S","Erhverv","AN 89 897","ZFA31200001890178","Fiat 500",20000.0],["F-2025-1091","DEB-10084","13-11-2025","27-11-2025","Bente Guldager","Privat","BO 01 908","WDD1690071J901289","Mercedes B180",10100.0],["F-2025-1092","DEB-10085","13-11-2025","27-11-2025","Rasmus Ørum","Privat","CP 23 019","WVWZZZ3BZ2E012390","VW Passat 3B",3600.0],["F-2025-1093","DEB-10086","14-11-2025","28-11-2025","Charlotte Kjeldgaard","Privat","DQ 45 120","YV1FW7481F1123412","Volvo V40",12300.0],["F-2025-1094","DEB-10003","14-11-2025","14-12-2025","Autohuset Vest ApS","Erhverv","ER 67 231","VF7NCRHYKGY234523","Citroën C4",9200.0],["F-2025-1095","DEB-10087","17-11-2025","01-12-2025","Michael Prang","Privat","FS 89 342","WBAWY310X0P345634","BMW X3",25400.0],["F-2025-1096","DEB-10088","17-11-2025","01-12-2025","Sofie Damgaard","Privat","GT 01 453","KMHDG41CBHU456745","Hyundai i20",4850.0],["F-2025-1097","DEB-10089","18-11-2025","02-12-2025","Poul Erik Nybo","Privat","HU 23 564","TMBAB7NE0G9567856","Skoda Superb",16900.0],["F-2025-1098","DEB-10090","18-11-2025","18-12-2025","Himmerland Beton A/S","Erhverv","IV 45 675","WMAN18ZZ99Y678967","MAN TGS 26.400",41500.0],["F-2025-1099","DEB-10091","19-11-2025","03-12-2025","Trine Kjærgaard","Privat","JW 67 786","VF3MCBHZWHS789078","Peugeot 3008",14500.0],["F-2025-1100","DEB-10092","19-11-2025","03-12-2025","Henrik Storgaard","Privat","KX 89 897","WAUZZZF28LA890189","Audi A5 Sportback",12300.0],["F-2025-1101","DEB-10113","01-12-2025","15-12-2025","Daniel Andersen","Privat","FM 41 996","WDD205000BYRCMCXN","Mercedes C200",8750.0],["F-2025-1102","DEB-10128","04-12-2025","18-12-2025","Bjarne Lindberg","Privat","XN 98 573","SB1KZ3JE7R1SSWV0V","Toyota Auris",12350.0],["F-2025-1103","DEB-10129","04-12-2025","18-12-2025","Bo Vestergaard","Privat","SA 27 330","JMZKE2W7M6E3D3V10","Mazda CX-5",17200.0],["F-2025-1104","DEB-10112","28-11-2025","12-12-2025","Emma Larsen","Privat","JL 19 117","KNADN512JLGLV6F5X","Kia Rio",11750.0],["F-2025-1105","DEB-10135","08-12-2025","22-12-2025","Erik Guldager","Privat","SX 50 865","WDD20500Y1RJ53M1E","Mercedes C200",17500.0],["F-2025-1106","DEB-10097","02-12-2025","16-12-2025","Frederik Holm","Privat","MZ 62 403","KMHD351CWD5P50GZT","Hyundai i30",10550.0],["F-2025-1107","DEB-10093","20-11-2025","04-12-2025","Mads Bjerregaard","Privat","CE 64 514","WF0SXXGBNNF30R1DD","Ford Kuga",16550.0],["F-2025-1108","DEB-10114","01-12-2025","15-12-2025","Niels Vium","Privat","GX 46 650","JMZDE10YM9GSC25HC","Mazda 2",18650.0],["F-2025-1109","DEB-10139","09-12-2025","23-12-2025","Anne Kongsted","Privat","AY 58 344","WBAVA3104NAHJM08P","BMW 320d",13600.0],["F-2025-1110","DEB-10105","25-11-2025","09-12-2025","Ahmed Sand","Privat","SH 95 133","VF3CCHMZ0T6DXKRJ5","Citroën C3",17050.0],["F-2025-1111","DEB-10094","20-11-2025","04-12-2025","Flemming Skov","Privat","BG 86 308","VF3YDZMFZFEAKNAW8","Peugeot Boxer",9900.0],["F-2025-1112","DEB-10099","21-11-2025","05-12-2025","Aage Villadsen","Privat","BE 68 435","WBA8E110D9DJF2DZ8","BMW 318i",16650.0],["F-2025-1113","DEB-10045","24-11-2025","08-12-2025","Nordjysk Køleteknik A/S","Erhverv","LH 68 918","YV1FW748T3H9NHKFA","Volvo V40",14150.0],["F-2025-1114","DEB-10014","01-12-2025","15-12-2025","Taxi Service Aarhus ApS","Erhverv","JM 42 586","WDD16900YCM4UEAAK","Mercedes B180",18750.0],["F-2025-1115","DEB-10095","20-11-2025","04-12-2025","Anne Boje","Privat","TU 72 872","WDD20400MZERSGH6F","Mercedes C220",13050.0],["F-2025-1116","DEB-10109","26-11-2025","10-12-2025","Peter Aagaard","Privat","FF 97 396","WDD169006GVW19TM9","Mercedes B180",8250.0],["F-2025-1117","DEB-10136","08-12-2025","22-12-2025","Emma Nørskov","Privat","SH 55 168","TMBAB7NE636U985S9","Skoda Superb",15450.0],["F-2025-1118","DEB-10100","24-11-2025","08-12-2025","Rasmus Larsen","Privat","LU 12 947","W1V44760VLK165JZK","Mercedes Sprinter",15850.0],["F-2025-1119","DEB-10130","04-12-2025","03-01-2026","Vestjysk Landbrugsmaskiner ApS","Erhverv","TU 87 531","VF3YDZMFJUB6RZZMJ","Peugeot Boxer",6250.0],["F-2025-1120","DEB-10137","08-12-2025","07-01-2026","Byggefirma Holm & Søn ApS","Erhverv","BG 87 536","YV1FW748R6TKZ2U9E","Volvo V40",19000.0],["F-2025-1121","DEB-10115","01-12-2025","15-12-2025","Karin Hjorth","Privat","XR 66 975","JMZDE10YWDZT30L4Y","Mazda 2",11300.0],["F-2025-1122","DEB-10116","01-12-2025","15-12-2025","Morten Poulsen","Privat","DX 30 788","WBA5A310D2KAHFLPP","BMW 520d",7950.0],["F-2025-1123","DEB-10125","03-12-2025","17-12-2025","Hanne Krogh","Privat","PJ 58 404","YV1RS61TPN3627L44","Volvo S60",6150.0],["F-2025-1124","DEB-10126","03-12-2025","17-12-2025","Charlotte Bruun","Privat","CH 42 280","VF7NCRHYL5S4R5CMZ","Citroën C4",8150.0],["F-2025-1125","DEB-10102","08-12-2025","22-12-2025","Daniel Kjeldgaard","Privat","ZX 17 718","TMBJJ7NEDSR9DV1SU","Skoda Octavia",10450.0],["F-2025-1126","DEB-10117","01-12-2025","15-12-2025","Maja Ottesen","Privat","FD 52 873","WAUZZZ8KY58HR3KE8","Audi A4",18150.0],["F-2025-1127","DEB-10118","01-12-2025","15-12-2025","Torben Yilmaz","Privat","UJ 41 944","WF0SXXGBNHSLR56L9","Ford Kuga",19650.0],["F-2025-1128","DEB-10101","24-11-2025","08-12-2025","Christian Kjeldgaard","Privat","AJ 26 474","VF3MCBHZADKPLA8Y6","Peugeot 3008",11650.0],["F-2025-1129","DEB-10138","08-12-2025","22-12-2025","Anders Møller","Privat","BR 58 666","JN1TENT3W710D561A","Nissan X-Trail",16150.0],["F-2025-1130","DEB-10106","25-11-2025","09-12-2025","Anders Christoffersen","Privat","RN 97 835","YV1MS674UMNY5YC2Z","Volvo V60",17000.0],["F-2025-1131","DEB-10140","09-12-2025","23-12-2025","Ulla Ørum","Privat","JC 96 374","WBA1V510YHZ5J8VU8","BMW 118i",14500.0],["F-2025-1132","DEB-10131","04-12-2025","18-12-2025","Thomas Overgaard","Privat","VK 35 151","WDD20400UXG6TRZXC","Mercedes C220",15800.0],["F-2025-1133","DEB-10119","01-12-2025","31-12-2025","Rebild Anlægsgartner ApS","Erhverv","SL 53 175","W1V44760TFEKZX1GY","Mercedes Sprinter",19600.0],["F-2025-1134","DEB-10102","24-11-2025","08-12-2025","Daniel Kjeldgaard","Privat","BX 51 229","YV1MW71400CYCZB9A","Volvo V50",6150.0],["F-2025-1135","DEB-10103","24-11-2025","08-12-2025","Henrik Kristensen","Privat","JA 89 537","VF7NCRHY1YK0W142E","Citroën C4",5600.0],["F-2025-1136","DEB-10120","01-12-2025","15-12-2025","Verner Frandsen","Privat","MC 24 106","JMZDE10Y0XF4RCM2K","Mazda 2",10050.0],["F-2025-1137","DEB-10127","03-12-2025","17-12-2025","Erik Nørskov","Privat","EP 53 570","TMBEG6NE927EVC7TW","Skoda Fabia",16950.0],["F-2025-1138","DEB-10107","25-11-2025","09-12-2025","Rasmus Lund","Privat","SC 48 926","YV1DZ825HH2BAUVFM","Volvo XC60",19450.0],["F-2025-1139","DEB-10108","25-11-2025","09-12-2025","Susanne Kjeldgaard","Privat","FD 14 763","WF0KXXGCT9RLCBRKJ","Ford Fiesta",14050.0],["F-2025-1140","DEB-10121","01-12-2025","15-12-2025","Kim Skjødt","Privat","RT 25 652","JMZKE2W73C8TLCTG0","Mazda CX-5",16750.0],["F-2025-1141","DEB-10132","05-12-2025","19-12-2025","Susanne Boje","Privat","KZ 25 315","WBA5A31041LH6AKGD","BMW 520d",7000.0],["F-2025-1142","DEB-10067","24-11-2025","24-12-2025","Skagen Fiskeeksport A/S","Erhverv","FE 68 697","KMHD351C4KPH54GYV","Hyundai i30",14400.0],["F-2025-1143","DEB-10110","26-11-2025","10-12-2025","Sofie Bak","Privat","NK 86 654","YV1RS61TMZ9TWVT8Z","Volvo S60",16250.0],["F-2025-1144","DEB-10111","26-11-2025","10-12-2025","Karin Villadsen","Privat","LF 75 582","WDD16900SRD63HZCJ","Mercedes B180",10500.0],["F-2025-1145","DEB-10123","02-12-2025","16-12-2025","Camilla Knudsen","Privat","LJ 40 146","VF1MFAM017UPULTNP","Renault Megane",11500.0],["F-2025-1146","DEB-10012","24-11-2025","24-12-2025","Fleet Solutions GmbH","Erhverv","RB 14 597","JMZDE10YRYEPYMBGT","Mazda 2",16000.0],["F-2025-1147","DEB-10096","20-11-2025","20-12-2025","Spar Nord Entreprise ApS","Erhverv","EF 49 895","VSSZZZ6J63SA14YH8","Seat Ibiza",16950.0],["F-2025-1148","DEB-10133","05-12-2025","19-12-2025","Rikke Kristensen","Privat","CX 49 307","WBAWY3106DLG78KB5","BMW X3",12600.0],["F-2025-1149","DEB-10097","20-11-2025","04-12-2025","Frederik Holm","Privat","LK 90 773","WBAVA3109U7Y8SMRG","BMW 320d",15850.0],["F-2025-1150","DEB-10122","01-12-2025","15-12-2025","Daniel Ørum","Privat","GM 47 433","WVWZZZ1JN7KA13X70","VW Golf",17650.0],["F-2025-1151","DEB-10104","24-11-2025","08-12-2025","Ahmed Vium","Privat","US 62 611","JMZKE2W7BD6M2P117","Mazda CX-5",16700.0],["F-2025-1152","DEB-10071","08-12-2025","22-12-2025","Aars Maskinstation ApS","Erhverv","PU 21 111","WBA5A310NB5TGKNFL","BMW 520d",7750.0],["F-2025-1153","DEB-10098","20-11-2025","04-12-2025","Karin Mortensen","Privat","HY 28 148","VF3YDZMFC16NZFMVG","Peugeot Boxer",8750.0],["F-2025-1154","DEB-10134","05-12-2025","19-12-2025","Marianne Lindberg","Privat","ZH 43 526","WBA3B110K5HEJR151","BMW 316d",18150.0],["F-2025-1155","DEB-10124","02-12-2025","16-12-2025","Kasper Bang","Privat","HE 24 546","YV1FW748XRCF8K1AM","Volvo V40",19850.0]];
+
+const TODAY=new Date(2025,11,15); /* opgørelsesdato 15-12-2025 */
+const pd=s=>{const p=s.split('-');return new Date(+p[2],+p[1]-1,+p[0]);};
+const DATA=R.map(a=>{const o={fak:a[0],deb:a[1],dato:a[2],forfald:a[3],kunde:a[4],type:a[5],plade:a[6],vin:a[7],bil:a[8],belob:a[9]};
+  o.dage=Math.round((TODAY-pd(o.forfald))/864e5);o.forfalden=o.dage>0;
+  o.bucket=!o.forfalden?'Ikke forfalden':o.dage<=14?'1–14 dage':o.dage<=30?'15–30 dage':o.dage<=60?'31–60 dage':'Over 60 dage';
+  return o;});
+const DUP={};DATA.forEach(d=>DUP[d.belob]=(DUP[d.belob]||0)+1);
+const PERDEB={};DATA.forEach(d=>PERDEB[d.deb]=(PERDEB[d.deb]||0)+1);
+
+let flt='alle',sortKey='fak',sortDir=1,selRow=null,page=1,pageSize=25;
+const marked=new Set();
+const fmt=n=>n.toLocaleString('da-DK',{minimumFractionDigits:2,maximumFractionDigits:2});
+const nz=s=>String(s).toUpperCase().replace(/Ø/g,'OE').replace(/Æ/g,'AE').replace(/Å/g,'AA').replace(/[^A-Z0-9]/g,'');
+const dnum=d=>{const p=d.split('-');return p[2]+p[1]+p[0];};
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',2800);}
+function msg(type,txt){const m=document.getElementById('msgbar');m.className='msgbar show '+type;
+ m.innerHTML='<span>'+txt+'</span><span class="x" onclick="document.getElementById(\'msgbar\').classList.remove(\'show\')">✕</span>';}
+
+function visible(){
+  const q=nz(document.getElementById('q').value);
+  let r=DATA.filter(d=>{
+    if(flt==='privat'&&d.type!=='Privat')return false;
+    if(flt==='erhverv'&&!d.type.startsWith('Erhverv'))return false;
+    if(flt==='forfaldne'&&!d.forfalden)return false;
+    if(flt==='stor'&&d.belob<15000)return false;
+    if(flt==='dup'&&DUP[d.belob]<2)return false;
+    if(flt==='fler'&&PERDEB[d.deb]<2)return false;
+    if(q&&!nz(d.fak+d.deb+d.kunde+d.plade+d.vin+d.bil+d.type+d.dato+d.forfald+d.belob).includes(q))return false;
+    return true;});
+  r.sort((a,b)=>{let x=a[sortKey],y=b[sortKey];
+    if(sortKey==='belob'||sortKey==='dage'){}
+    else if(sortKey==='dato'||sortKey==='forfald'){x=dnum(x);y=dnum(y);}
+    else{x=String(x).toLowerCase();y=String(y).toLowerCase();}
+    return x>y?sortDir:x<y?-sortDir:0;});
+  return r;
+}
+const badge=t=>t==='Privat'?'<span class="badge b-priv">Privat</span>'
+  :t==='Erhverv (EU)'?'<span class="badge b-eu">Erhverv (EU)</span>':'<span class="badge b-erh">Erhverv</span>';
+const statusCell=d=>d.forfalden
+  ?'<span class="dot d-late"></span>Forfalden '+d.dage+' dage'
+  :'<span class="dot d-open"></span>Åben – forfald om '+Math.abs(d.dage)+' dage';
+
+function render(){
+  const rows=visible();
+  const pages=Math.max(1,Math.ceil(rows.length/(pageSize||rows.length)));
+  if(page>pages)page=pages;
+  const from=pageSize?(page-1)*pageSize:0,to=pageSize?Math.min(from+pageSize,rows.length):rows.length;
+  const tb=document.getElementById('body');tb.innerHTML='';
+  rows.slice(from,to).forEach(d=>{
+    tb.insertAdjacentHTML('beforeend','<tr class="'+(selRow===d.fak?'sel':'')+'" onclick="pickRow(\''+d.fak+'\')" ondblclick="openDetails()">'+
+    '<td><input type="checkbox" class="chk" '+(marked.has(d.fak)?'checked':'')+' onclick="event.stopPropagation();mark(\''+d.fak+'\',this.checked)"></td>'+
+    '<td class="link">'+d.fak+'</td>'+
+    '<td class="deb">'+d.deb+(PERDEB[d.deb]>1?'<span class="dup" title="Debitoren har '+PERDEB[d.deb]+' åbne poster">'+PERDEB[d.deb]+'</span>':'')+'</td>'+
+    '<td>'+d.dato+'</td><td>'+d.forfald+'</td><td>'+d.kunde+'</td>'+
+    '<td>'+badge(d.type)+'</td><td>'+d.plade+'</td><td>'+d.vin+'</td><td>'+d.bil+'</td>'+
+    '<td class="r">'+fmt(d.belob)+(DUP[d.belob]>1?'<span class="dup" title="'+DUP[d.belob]+' poster har samme beløb">⧉'+DUP[d.belob]+'</span>':'')+'</td>'+
+    '<td>'+statusCell(d)+'</td></tr>');
+  });
+  const sumV=rows.reduce((s,d)=>s+d.belob,0);
+  document.getElementById('cnt').textContent='('+rows.length+' af '+DATA.length+' poster)';
+  document.getElementById('ftLab').textContent=(rows.length===DATA.length?'Fakturabeløb i alt':'Fakturabeløb i alt (filtreret)')+' – '+rows.length+' poster';
+  document.getElementById('ftSum').textContent=fmt(sumV);
+  document.getElementById('foot').innerHTML='Vist total: <b>'+fmt(sumV)+' DKK</b> · Markerede: <b>'+marked.size+
+    '</b> · Samlet åben saldo: <b>'+fmt(DATA.reduce((s,d)=>s+d.belob,0))+' DKK</b>';
+
+  let p='<span>Vis</span><select onchange="pageSize=+this.value||0;page=1;render()">'+
+    [25,50,100,0].map(n=>'<option value="'+n+'" '+(pageSize===n?'selected':'')+'>'+(n||'Alle')+'</option>').join('')+
+    '</select><span>rækker · '+(rows.length?(from+1):0)+'–'+to+' af '+rows.length+'</span>'+
+    '<span style="flex:1"></span><button class="pbtn" onclick="page=1;render()" '+(page===1?'disabled':'')+'>«</button>'+
+    '<button class="pbtn" onclick="page--;render()" '+(page===1?'disabled':'')+'>‹</button>';
+  for(let i=1;i<=pages&&i<=12;i++)p+='<button class="pbtn '+(i===page?'cur':'')+'" onclick="page='+i+';render()">'+i+'</button>';
+  p+='<button class="pbtn" onclick="page++;render()" '+(page===pages?'disabled':'')+'>›</button>'+
+     '<button class="pbtn" onclick="page='+pages+';render()" '+(page===pages?'disabled':'')+'>»</button>';
+  document.getElementById('pager').innerHTML=p;
+
+  ['fak','deb','dato','forfald','kunde','type','plade','vin','bil','belob','dage'].forEach(k=>
+    document.getElementById('ar-'+k).textContent=(k===sortKey?(sortDir===1?'▲':'▼'):''));
+  const priv=DATA.filter(d=>d.type==='Privat'),erh=DATA.filter(d=>d.type.startsWith('Erhverv')),
+        late=DATA.filter(d=>d.forfalden),dup=DATA.filter(d=>DUP[d.belob]>1);
+  document.getElementById('tPosts').textContent=DATA.length;
+  document.getElementById('tSum').textContent=fmt(DATA.reduce((s,d)=>s+d.belob,0));
+  document.getElementById('tLate').textContent=late.length+' / '+fmt(late.reduce((s,d)=>s+d.belob,0));
+  document.getElementById('tDeb').textContent=Object.keys(PERDEB).length;
+  document.getElementById('tSplit').textContent=priv.length+' / '+erh.length;
+  document.getElementById('tAvg').textContent=fmt(DATA.reduce((s,d)=>s+d.belob,0)/DATA.length);
+  document.getElementById('tDup').textContent=dup.length;
+  renderFB();
+}
+function pickRow(f){selRow=f;render();}
+function mark(f,on){on?marked.add(f):marked.delete(f);render();}
+function selectAll(on){on?visible().forEach(d=>marked.add(d.fak)):marked.clear();document.getElementById('chkAll').checked=on;render();}
+function setF(el){document.querySelectorAll('[data-fl]').forEach(c=>c.classList.remove('active'));el.classList.add('active');flt=el.dataset.fl;page=1;render();}
+function sortBy(k){if(sortKey===k)sortDir=-sortDir;else{sortKey=k;sortDir=1;}render();}
+function applyView(){const v=document.getElementById('view').value;
+  const map={std:'alle',forf:'forfaldne',erh:'erhverv',dup:'dup',fler:'fler'};
+  setF(document.querySelector('[data-fl="'+map[v]+'"]'));}
+
+const row=(a,b)=>'<div class="fbrow"><span>'+a+'</span><span>'+b+'</span></div>';
+function renderFB(){
+  const fb=document.getElementById('fb');const d=DATA.find(x=>x.fak===selRow);let h='';
+  if(d){const same=DATA.filter(x=>x.deb===d.deb),dupRows=DATA.filter(x=>x.belob===d.belob);
+    h+='<div class="fbsec"><h4>Faktura</h4>'+row('Fakturanr.',d.fak)+row('Fakturadato',d.dato)+row('Forfaldsdato',d.forfald)+
+      row('Beløb DKK',fmt(d.belob))+row('Status',d.forfalden?'Forfalden '+d.dage+' dage':'Åben')+row('Aldersinterval',d.bucket)+'</div>'+
+      '<div class="fbsec"><h4>Debitor</h4>'+row('Debitornr.',d.deb)+row('Navn',d.kunde)+row('Kundetype',d.type)+
+      row('Åbne poster',same.length)+row('Debitorsaldo',fmt(same.reduce((s,x)=>s+x.belob,0))+' DKK')+
+      (same.length>1?'<div style="margin-top:5px;color:var(--txt2)">'+same.map(x=>x.fak+' · '+fmt(x.belob)).join('<br>')+'</div>':'')+'</div>'+
+      '<div class="fbsec"><h4>Køretøj</h4>'+row('Bil',d.bil)+row('Nummerplade',d.plade)+row('Stelnummer',d.vin)+'</div>'+
+      '<div class="fbsec"><h4>Beløbsdubletter</h4>'+row('Poster med '+fmt(d.belob),dupRows.length)+
+      (dupRows.length>1?'<div style="margin-top:5px;color:var(--txt2)">'+dupRows.map(x=>x.fak+' · '+x.deb+' · '+x.plade).join('<br>')+'</div>':'')+'</div>';
+  } else h+='<div class="fbsec" style="color:var(--txt2)">Markér en linje for at se relaterede oplysninger.</div>';
+  const b={};DATA.forEach(d=>b[d.bucket]=(b[d.bucket]||0)+d.belob);const mx=Math.max(...Object.values(b));
+  h+='<div class="fbsec"><h4>Aldersfordeling (DKK)</h4>'+['Ikke forfalden','1–14 dage','15–30 dage','31–60 dage','Over 60 dage']
+    .filter(k=>b[k]).map(k=>row(k,fmt(b[k]))+'<div class="bar"><i style="width:'+(b[k]/mx*100)+'%"></i></div>').join('')+'</div>'+
+    '<div class="fbsec"><h4>Eksport</h4><button class="abtn primary" style="width:100%;justify-content:center" onclick="exportCSV(\'alle\')">⬇ Download CSV ('+DATA.length+' poster)</button></div>';
+  fb.innerHTML=h;
+}
+const f=(l,v)=>'<div class="f"><label>'+l+'</label><div>'+v+'</div></div>';
+function dlg(t,b,ft){document.getElementById('dlgTitle').textContent=t;document.getElementById('dlgBody').innerHTML=b;
+ document.getElementById('dlgFoot').innerHTML=ft||'<button class="abtn primary" onclick="closeDlg()">Luk</button>';
+ document.getElementById('mask').classList.add('show');}
+function closeDlg(){document.getElementById('mask').classList.remove('show');}
+function openDetails(){
+  if(!selRow)return msg('warn','Markér en linje først.');
+  const d=DATA.find(x=>x.fak===selRow);
+  dlg('Faktura '+d.fak,'<h4>Hoved</h4><div class="fgrid">'+
+   f('Fakturanr.',d.fak)+f('Debitornr.',d.deb)+f('Status',d.forfalden?'Forfalden '+d.dage+' dage':'Åben')+f('Aldersinterval',d.bucket)+
+   f('Fakturadato',d.dato)+f('Forfaldsdato',d.forfald)+f('Kunde',d.kunde)+f('Kundetype',d.type)+
+   f('Beløb DKK',fmt(d.belob))+f('Valuta','DKK')+'</div>'+
+   '<h4>Køretøj</h4><div class="fgrid">'+f('Bil',d.bil)+f('Nummerplade',d.plade)+f('Stelnummer',d.vin)+
+   f('Balancekonto','6100 – Debitorer')+'</div>'+
+   '<h4>Afstemningsnøgler</h4><div class="fgrid">'+f('Poster med samme beløb',DUP[d.belob])+
+   f('Åbne poster på debitor',PERDEB[d.deb])+'</div>',
+   '<button class="abtn" onclick="closeDlg()">Luk</button><button class="abtn primary" onclick="closeDlg();exportRow(\''+d.fak+'\')">⬇ Download denne linje som CSV</button>');
+}
+function openDebitor(){
+  const g={};DATA.forEach(d=>{(g[d.deb]=g[d.deb]||{deb:d.deb,navn:d.kunde,type:d.type,n:0,s:0}),g[d.deb].n++,g[d.deb].s+=d.belob;});
+  const list=Object.values(g).sort((a,b)=>b.s-a.s);
+  let h='<p style="color:var(--txt2)">'+list.length+' debitorer med åbne poster. Sorteret efter saldo.</p>'+
+   '<div style="max-height:52vh;overflow:auto"><table style="width:100%"><thead><tr><th>Debitornr.</th><th>Navn</th><th>Type</th>'+
+   '<th class="r">Poster</th><th class="r">Saldo DKK</th></tr></thead><tbody>';
+  list.forEach(x=>h+='<tr><td>'+x.deb+'</td><td>'+x.navn+'</td><td>'+x.type+'</td><td class="r">'+x.n+'</td><td class="r">'+fmt(x.s)+'</td></tr>');
+  h+='</tbody><tfoot><tr><td colspan="3">I alt</td><td class="r">'+DATA.length+'</td><td class="r">'+fmt(DATA.reduce((s,d)=>s+d.belob,0))+'</td></tr></tfoot></table></div>';
+  dlg('Debitorsaldoliste',h);
+}
+function openAging(){
+  const buckets=['Ikke forfalden','1–14 dage','15–30 dage','31–60 dage','Over 60 dage'];
+  const tot=DATA.reduce((s,d)=>s+d.belob,0);
+  let h='<table style="width:100%"><thead><tr><th>Aldersinterval</th><th class="r">Antal</th><th class="r">Beløb DKK</th><th class="r">Andel</th></tr></thead><tbody>';
+  buckets.forEach(bk=>{const r=DATA.filter(d=>d.bucket===bk);if(!r.length)return;
+    const s=r.reduce((a,d)=>a+d.belob,0);
+    h+='<tr><td>'+bk+'</td><td class="r">'+r.length+'</td><td class="r">'+fmt(s)+'</td><td class="r">'+(s/tot*100).toFixed(1)+' %</td></tr>';});
+  h+='</tbody><tfoot><tr><td>I alt</td><td class="r">'+DATA.length+'</td><td class="r">'+fmt(tot)+'</td><td class="r">100,0 %</td></tr></tfoot></table>'+
+     '<p style="color:var(--txt2)">Opgørelsesdato: 15-12-2025.</p>';
+  dlg('Aldersfordeling af åbne debitorposter',h);
+}
+
+/* ================= EKSPORT ================= */
+const HEAD=['Fakturanr','Debitornr','Fakturadato','Forfaldsdato','Kunde','Kundetype','Nummerplade','Stelnummer','Bil','Beløb DKK'];
+const XHEAD=['Status','Dage over forfald','Aldersinterval','Antal poster med samme beløb','Åbne poster på debitor'];
+function esc(v,sep){v=String(v);return /["\n]/.test(v)||v.includes(sep)?'"'+v.replace(/"/g,'""')+'"':v;}
+function buildCSV(rows,opt){
+  const sep=opt.sep,num=n=>opt.dec===','?fmt(n).replace(/\./g,''):n.toFixed(2);
+  const head=opt.extra?HEAD.concat(XHEAD):HEAD;
+  const out=[];if(opt.sepHint&&sep===';')out.push('sep=;');
+  out.push(head.map(h=>esc(h,sep)).join(sep));
+  rows.forEach(d=>{let a=[d.fak,d.deb,d.dato,d.forfald,d.kunde,d.type,d.plade,d.vin,d.bil,num(d.belob)];
+    if(opt.extra)a=a.concat([d.forfalden?'Forfalden':'Åben',d.forfalden?d.dage:0,d.bucket,DUP[d.belob],PERDEB[d.deb]]);
+    out.push(a.map(v=>esc(v,sep)).join(sep));});
+  if(opt.total){const t=rows.reduce((s,d)=>s+d.belob,0);
+    const a=['','','','','','','','','Fakturabeløb i alt',num(t)];if(opt.extra)a.push('','','','','');
+    out.push(a.map(v=>esc(v,sep)).join(sep));}
+  return out.join('\r\n');
+}
+function download(name,text,bom,mime){
+  const blob=new Blob([(bom?'\uFEFF':'')+text],{type:mime||'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
+}
+let OPT={sep:';',dec:',',bom:true,total:true,sepHint:false,extra:false};
+function stamp(){const d=new Date(),p=n=>String(n).padStart(2,'0');
+ return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());}
+function pick(scope){
+  if(scope==='valgte')return DATA.filter(d=>marked.has(d.fak));
+  if(scope==='filtreret')return visible();
+  return DATA.slice();
+}
+function exportCSV(scope){
+  const rows=pick(scope);
+  if(!rows.length)return msg('warn','Ingen linjer er markeret. Sæt flueben i kolonnen længst til venstre.');
+  download('Aabne_debitorposter_BNV_'+rows.length+'poster_'+stamp()+'.csv',buildCSV(rows,OPT),OPT.bom);
+  msg('ok','CSV-fil downloadet: <b>'+rows.length+'</b> poster · i alt <b>'+fmt(rows.reduce((s,d)=>s+d.belob,0))+' DKK</b>.');
+}
+function exportJSON(){
+  const rows=visible().map(d=>({fakturanr:d.fak,debitornr:d.deb,fakturadato:d.dato,forfaldsdato:d.forfald,
+    kunde:d.kunde,kundetype:d.type,nummerplade:d.plade,stelnummer:d.vin,bil:d.bil,beloeb_dkk:d.belob,
+    status:d.forfalden?'Forfalden':'Åben',dage_over_forfald:d.forfalden?d.dage:0,aldersinterval:d.bucket}));
+  download('Aabne_debitorposter_BNV.json',JSON.stringify({juridisk_enhed:'BNV – Bilhuset Nordvest A/S',
+    balancekonto:'6100 – Debitorer',valuta:'DKK',opgoerelsesdato:'15-12-2025',antal:rows.length,
+    saldo_dkk:rows.reduce((s,d)=>s+d.beloeb_dkk,0),poster:rows},null,2),true,'application/json');
+  msg('ok','JSON-fil downloadet med <b>'+rows.length+'</b> poster.');
+}
+function exportRow(fak){const d=DATA.find(x=>x.fak===fak);
+  download('Faktura_'+fak+'.csv',buildCSV([d],{...OPT,total:false}),OPT.bom);msg('ok','CSV-fil for '+fak+' er downloadet.');}
+function copyClipboard(){
+  const rows=visible(),txt=buildCSV(rows,{...OPT,sep:'\t'});
+  navigator.clipboard?navigator.clipboard.writeText(txt).then(()=>toast(rows.length+' linjer kopieret – indsæt i Excel med Ctrl+V'))
+   .catch(()=>toast('Kunne ikke kopiere i denne browser')):toast('Udklipsholder understøttes ikke');
+}
+function openExportDlg(){
+  dlg('Eksportindstillinger for CSV','<div class="fgrid">'+
+   '<div class="f"><label>Feltseparator</label><select id="oSep"><option value=";" '+(OPT.sep===';'?'selected':'')+'>Semikolon ; (dansk Excel)</option><option value="," '+(OPT.sep===','?'selected':'')+'>Komma ,</option><option value="\t" '+(OPT.sep==='\t'?'selected':'')+'>Tabulator</option></select></div>'+
+   '<div class="f"><label>Decimaltegn i beløb</label><select id="oDec"><option value="," '+(OPT.dec===','?'selected':'')+'>Komma (14500,00)</option><option value="." '+(OPT.dec==='.'?'selected':'')+'>Punktum (14500.00)</option></select></div>'+
+   '<div class="f"><label>UTF-8 BOM (æ ø å i Excel)</label><select id="oBom"><option value="1" '+(OPT.bom?'selected':'')+'>Ja</option><option value="0" '+(!OPT.bom?'selected':'')+'>Nej</option></select></div>'+
+   '<div class="f"><label>Totalrække i filen</label><select id="oTot"><option value="1" '+(OPT.total?'selected':'')+'>Ja</option><option value="0" '+(!OPT.total?'selected':'')+'>Nej</option></select></div>'+
+   '<div class="f"><label>Medtag status/alder-kolonner</label><select id="oX"><option value="0" '+(!OPT.extra?'selected':'')+'>Nej – kun de 10 kolonner</option><option value="1" '+(OPT.extra?'selected':'')+'>Ja – + status, dage, alder, dubletter</option></select></div>'+
+   '<div class="f"><label>Tilføj "sep=;" som første linje</label><select id="oHint"><option value="0" '+(!OPT.sepHint?'selected':'')+'>Nej</option><option value="1" '+(OPT.sepHint?'selected':'')+'>Ja</option></select></div>'+
+   '</div><p style="color:var(--txt2)">Standard svarer til det uploadede filformat: semikolon, komma-decimal, UTF-8 BOM og totalrække.</p>',
+   '<button class="abtn" onclick="closeDlg()">Annuller</button><button class="abtn primary" onclick="saveOpt()">Gem og download</button>');
+}
+function saveOpt(){
+  OPT={sep:document.getElementById('oSep').value,dec:document.getElementById('oDec').value,
+   bom:document.getElementById('oBom').value==='1',total:document.getElementById('oTot').value==='1',
+   sepHint:document.getElementById('oHint').value==='1',extra:document.getElementById('oX').value==='1'};
+  closeDlg();exportCSV('alle');
+}
+render();
+msg('info','<b>'+DATA.length+' åbne debitorposter</b> fordelt på <b>'+Object.keys(PERDEB).length+
+ ' debitorer</b> · samlet åben saldo <b>'+fmt(DATA.reduce((s,d)=>s+d.belob,0))+' DKK</b> · <b>'+
+ DATA.filter(d=>DUP[d.belob]>1).length+'</b> poster deler beløb med andre (⧉). Klik <b>“Download CSV”</b> for at hente posterne.');
+</script>
+</body>
+</html>
